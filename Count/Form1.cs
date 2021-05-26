@@ -14,8 +14,9 @@ namespace Count
     public partial class Form1 : Form
     {
         CountNumber countNumber = new CountNumber(0, 99);
+		LabelFade labelFade;
 
-        Vector formDimension = new Vector();
+		Vector formDimension = new Vector();
 
         public Form1()
         {
@@ -27,6 +28,14 @@ namespace Count
             countNumber.SetToLabel(label1, formDimension);
 
             timer1.Interval = 1000;
+		}
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+			labelFade = new LabelFade(ref label1, this.BackColor, LabelFade.FadeType.OUT);
+            
+            labelFade.SetReferenceInterval(timer1.Interval);
+
             timer1.Start();
         }
 
@@ -35,6 +44,8 @@ namespace Count
             countNumber.Count();
 
             countNumber.SetToLabel(label1, formDimension);
-        }
-    }
+
+			labelFade.FadeLabel();
+		}
+	}
 }
